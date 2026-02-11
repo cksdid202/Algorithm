@@ -9,57 +9,44 @@ public class Solution {
 		
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringBuilder sb = new StringBuilder();
-		StringTokenizer st = new StringTokenizer(br.readLine());
 		
-		int TC = Integer.parseInt(st.nextToken());
 		
-		for(int t = 0; t < TC; t++) {
-			st = new StringTokenizer(br.readLine());
-			
+		int T = Integer.parseInt(br.readLine());
+		
+		for (int t = 1; t <= T; t++) {
+			StringTokenizer st = new StringTokenizer(br.readLine());
 			int N = Integer.parseInt(st.nextToken());
 			int M = Integer.parseInt(st.nextToken());
 			
-			int[] arr = new int[N];
-			
+			int[] weights = new int[N];
 			st = new StringTokenizer(br.readLine());
 			for(int i = 0; i < N; i++) {
-				arr[i] = Integer.parseInt(st.nextToken());
+				weights[i] = Integer.parseInt(st.nextToken());
 			}
 			
-			Arrays.sort(arr);
+			Arrays.sort(weights);
 			
-			int start = 0;
-			int end = N-1;
-			int cnt = 0;
-			int max = -1;
+			int left = 0;
+			int right = N -1;
+			int maxResult = -1;
 			
-			while(start < end) {
+			while (left < right) {
+				int sum = weights[left] + weights[right];
 				
-				cnt = arr[start] + arr[end];
-				
-				if(cnt < M) {
-					start++;
-					if(cnt > max) {
-						max = cnt;
-					}
-				}
-				else if(cnt > M) {
-					end--;
+				if(sum > M) {
+					right--;
 				}
 				else {
-					max = cnt;
-					break;
+					if(maxResult < sum) {
+						maxResult = sum;
+					}
+					left++;
 				}
-				
 			}
-			
-			sb.append("#").append(t+1).append(" ").append(max).append("\n");
-			
-			
-			
+			sb.append("#").append(t).append(" ").append(maxResult).append("\n");
 			
 		}
-		System.out.println(sb);
+		System.out.print(sb);
 		
 		
 		
