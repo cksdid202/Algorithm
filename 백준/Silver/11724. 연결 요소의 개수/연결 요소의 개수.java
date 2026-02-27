@@ -36,7 +36,7 @@ public class Main {
 		for(int i = 1; i <= N; i++) {
 			
 			if(visited[i] == false) {
-				dfs(i);
+				bfs(i);
 				count++; // 연결요소++
 			}
 			
@@ -57,6 +57,35 @@ public class Main {
 				dfs(i);
 			}
 		}
+		
+	}
+	
+	public static void bfs(int v) {
+		
+		Queue<Integer> queue = new ArrayDeque<>();
+		
+		visited[v] = true;
+		queue.offer(v);
+		
+		while(!queue.isEmpty()) {
+			int cur = queue.poll();
+			
+			for(int i = 1; i <= N; i++) {
+				if(edge[cur][i] == true && visited[i] == false) {
+					
+					visited[i] = true;
+					queue.offer(i);
+				}
+			}
+		}
+		
+		
+		
+		
+		
+		
+		
+		
 		
 	}
 	
