@@ -65,24 +65,16 @@ public class Main {
 					return cur[2]+1;
 				}
 				
-				if(isIn(nr, nc) && !visited[nr][nc][cur[3]] && map[nr][nc] == 0) {
-					visited[nr][nc][cur[3]] = true;
-					q.offer(new int[] {nr, nc, cur[2]+1, cur[3]});
-				}
-			}
-			if(cur[3] < K) { // 능력이 있으면
-				for(int i=0; i < 4; i++) {
-					int nr = cur[0] + dr[i];
-					int nc = cur[1] + dc[i];
-					
-					if(nr == N-1 && nc == M-1) {
-						return cur[2]+1;
-					}
-					
+				if(cur[3] < K) {
 					if(isIn(nr, nc) && !visited[nr][nc][cur[3]+1] && map[nr][nc] == 1) {
 						visited[nr][nc][cur[3]+1] = true;
 						q.offer(new int[] {nr, nc, cur[2]+1, cur[3]+1});
 					}
+				}
+				
+				if(isIn(nr, nc) && !visited[nr][nc][cur[3]] && map[nr][nc] == 0) {
+					visited[nr][nc][cur[3]] = true;
+					q.offer(new int[] {nr, nc, cur[2]+1, cur[3]});
 				}
 			}
 
