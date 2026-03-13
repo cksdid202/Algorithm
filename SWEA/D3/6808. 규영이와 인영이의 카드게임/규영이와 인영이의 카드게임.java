@@ -1,85 +1,92 @@
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+import java.util.*;
+import java.io.*;
 
 public class Solution {
-    static int[] gyuCards; 
-    static int[] inCards;  
-    static int[] resultIn; // 인영이가 내는 순서 (순열 완성본)
-    static boolean[] visited; // 순열용 방문 체크
-    static int winCount, loseCount; // 규영이의 승/패 횟수
+	
+	public static int[] gArr;
+	public static int[] iArr;
+	public static StringBuilder sb = new StringBuilder();
+	public static int winCnt = 0;
+	public static int loseCnt = 0;
 
-    public static void main(String[] args) throws Exception {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder sb = new StringBuilder();
 
-        int T = Integer.parseInt(br.readLine());
+	public static void main(String[] args) throws Exception{
+		// TODO Auto-generated method stub
 
-        for (int t = 1; t <= T; t++) {
-            gyuCards = new int[9];
-            inCards = new int[9];
-            resultIn = new int[9];
-            visited = new boolean[9];
-            winCount = 0;
-            loseCount = 0;
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+				
+		int T = Integer.parseInt(br.readLine());
+		
+		for(int t = 1; t <= T; t++) {
+			
+			StringTokenizer st = new StringTokenizer(br.readLine());
+			boolean[] picked = new boolean[19];
+			
+			gArr = new int[9];
+			iArr = new int[9];
+			
+			for(int i = 0; i < 9; i++) {
+				gArr[i] = Integer.parseInt(st.nextToken());
+				picked[gArr[i]] = true;
+			}
+			for(int i = 1, j = 0; i <= 18; i++) {
+				if(!picked[i]) {
+					iArr[j] = i;
+					j++;
+				}
+			}
+			
+			soonyeol(0, new boolean [9], 0, 0);
+			sb.append("#").append(t).append(" ").append(winCnt).append(" ").append(loseCnt).append("\n");
 
-            // 규영이 카드인지 체크
-            boolean[] isGyuCard = new boolean[19];
-            
-            StringTokenizer st = new StringTokenizer(br.readLine());
-            for (int i = 0; i < 9; i++) {
-                gyuCards[i] = Integer.parseInt(st.nextToken());
-                isGyuCard[gyuCards[i]] = true;
-            }
+			
+			winCnt = 0;
+			loseCnt = 0;
+			
+		}
+		System.out.print(sb);
+		
+		
+	}
+	
+	public static void soonyeol(int cnt, boolean[] isSelected, int gCnt, int iCnt) {
+		
+		if(cnt == 9) {
+			
+			if(gCnt > iCnt) {
+				winCnt++;
+			}
+			else {
+				loseCnt++;
+			}
+			
+			return;
+		}
+		
+		for(int i = 0; i < 9; i++) {
+			
+			if(isSelected[i]) {
+				continue;
+			}
+			int sum = gArr[cnt] + iArr[i]; 
+			int diff = gArr[cnt] - iArr[i];
+			isSelected[i] = true;
+			soonyeol(cnt+1, isSelected, gCnt+(diff>0 ? sum : 0), iCnt+(diff<0 ? sum : 0));
+			isSelected[i] = false; 
+			
+			
+		}
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
 
-            // 규영이 거 빼고 나머지
-            int idx = 0;
-            for (int i = 1; i <= 18; i++) {
-                if (!isGyuCard[i]) {
-                    inCards[idx++] = i;
-                }
-            }
-
-            perm(0);
-
-            sb.append("#").append(t).append(" ")
-              .append(winCount).append(" ").append(loseCount).append("\n");
-        }
-        System.out.print(sb);
-    }
-
-    // 순열 생성 
-    public static void perm(int depth) {
-        if (depth == 9) {
-            playGame();
-            return;
-        }
-
-        for (int i = 0; i < 9; i++) {
-            if (!visited[i]) {
-                visited[i] = true;
-                resultIn[depth] = inCards[i]; 
-                perm(depth + 1);
-                visited[i] = false; // 
-            }
-        }
-    }
-
-    // 게임 승부 계산 로직
-    public static void playGame() {
-        int gyuScore = 0;
-        int inScore = 0;
-
-        for (int i = 0; i < 9; i++) {
-            if (gyuCards[i] > resultIn[i]) {
-                gyuScore += gyuCards[i] + resultIn[i];
-            } else {
-                inScore += gyuCards[i] + resultIn[i];
-            }
-        }
-
-        if (gyuScore > inScore) winCount++;
-        else if (gyuScore < inScore) loseCount++;
-    }
 }
