@@ -1,56 +1,60 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+
+import java.util.*;
+import java.io.*;
 
 public class Main {
-    
-    static int K;
-    static int[] arr;       
-    static int[] result;    
-    static StringBuilder sb = new StringBuilder();
+	
+	public static int k;
+	public static int[] arr;
+	public static int[] numbers;
 
-    public static void main(String[] args) throws Exception {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        
-        while (true) {
-            StringTokenizer st = new StringTokenizer(br.readLine());
-            
-            K = Integer.parseInt(st.nextToken());
-            
-            if (K == 0) {
-                break;
-            }
-            
-            arr = new int[K];
-            result = new int[6]; 
-            
-            for (int i = 0; i < K; i++) {
-                arr[i] = Integer.parseInt(st.nextToken());
-            }
-            
-            combination(0, 0);
-            
-            sb.append("\n"); 
-        }
-        
-        System.out.print(sb);
-    }
-    
-    static void combination(int depth, int start) {
-        
-        if (depth == 6) {
-            for (int val : result) {
-                sb.append(val).append(" ");
-            }
-            sb.append("\n");
-            return;
-        }
-        
-        for (int i = start; i < K; i++) {
-            
-            result[depth] = arr[i]; 
-            
-            combination(depth + 1, i + 1); 
-        }
-    }
+	public static void main(String[] args) throws Exception {
+		// TODO Auto-generated method stub
+
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		
+		k = Integer.parseInt(st.nextToken());
+		while(k != 0) {
+			arr = new int[k];
+			numbers = new int[k];
+			for(int i = 0; i < k; i++) {
+				arr[i] = Integer.parseInt(st.nextToken());
+			}
+			
+			johab(0, 0);
+			
+			st = new StringTokenizer(br.readLine());
+			k = Integer.parseInt(st.nextToken());
+			System.out.println();
+			
+		}
+		
+		
+		
+		
+		
+	}
+	
+	
+	public static void johab(int start, int cnt) {
+		
+		if(cnt == 6) {
+			for(int i = 0; i < 6; i++) {
+				System.out.print(numbers[i]+" ");
+			}
+			System.out.println();
+			return;
+		}
+		
+		for(int i = start; i < k; i++) {
+			numbers[cnt] = arr[i];
+			johab(i + 1, cnt+1);
+		}
+	
+		
+	}
+	
+
 }
