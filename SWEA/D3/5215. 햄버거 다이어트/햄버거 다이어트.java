@@ -38,8 +38,8 @@ public class Solution {
 			}
 			maxKcal = Integer.MIN_VALUE;
 			maxPoint = Integer.MIN_VALUE;
-			//johab(0, 0, 0, 0);
-			subset(0, 0, 0, 0);
+			johab(0, 0, 0, 0);
+			//subset(0, 0, 0, 0);
 			sb.append('#').append(t).append(" ").append(maxPoint).append("\n");
 			
 			
