@@ -1,0 +1,2 @@
+-- 코드를 입력하세요
+SELECT TITLE, a.BOARD_ID, b.REPLY_ID, b.WRITER_ID, b.CONTENTS, b.CREATED_DATE from used_goods_board a join used_goods_reply b on a.board_id = b.board_id where YEAR(a.created_date) = 2022 and MONTH(a.created_date) = 10 order by created_date, title;
