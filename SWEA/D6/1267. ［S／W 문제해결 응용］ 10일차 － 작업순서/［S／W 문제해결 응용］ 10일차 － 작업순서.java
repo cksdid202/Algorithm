@@ -34,7 +34,7 @@ public class Solution {
 				
 			}
 			
-			Queue<Integer> q = new ArrayDeque<>();
+			PriorityQueue<Integer> q = new PriorityQueue<>();
 			
 			for(int i = 1; i <= V; i++) {
 				if(inDegrees[i]==0) {
