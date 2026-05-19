@@ -1,10 +1,10 @@
 
-import java.io.*;
 import java.util.*;
+import java.io.*;
 
 public class Solution {
 
-	public static void main(String[] args) throws Exception{
+	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
 
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -18,14 +18,12 @@ public class Solution {
 			int V = Integer.parseInt(st.nextToken());
 			int E = Integer.parseInt(st.nextToken());
 			
-			List<Integer>[] adj = new ArrayList[V+1];
-			for(int i = 1; i <= V; i++) {
+			List<Integer>[] adj = new ArrayList[V + 1];
+			for(int i =  1; i <= V; i++) {
 				adj[i] = new ArrayList<>();
 			}
-			int[] inDegrees = new int [V+1];
-			
+			int[] inDegrees = new int [V + 1];
 			st = new StringTokenizer(br.readLine());
-			
 			for(int i = 1; i <= E; i++) {
 				
 				int pre = Integer.parseInt(st.nextToken());
@@ -36,15 +34,14 @@ public class Solution {
 				
 			}
 			
-			PriorityQueue<Integer> q = new PriorityQueue<>();
+			Queue<Integer> q = new ArrayDeque<>();
 			
 			for(int i = 1; i <= V; i++) {
-				if(inDegrees[i] == 0) {
+				if(inDegrees[i]==0) {
 					q.offer(i);
 				}
 			}
-			
-			sb.append('#').append(t);
+			List arr = new ArrayList<>();
 			while(!q.isEmpty()) {
 				
 				int size = q.size();
@@ -52,24 +49,38 @@ public class Solution {
 				for(int i = 0; i < size; i++) {
 					
 					int curr = q.poll();
-					sb.append(' ').append(curr);
+					arr.add(curr);
 					
 					for(int next : adj[curr]) {
+						
 						inDegrees[next]--;
-						if(inDegrees[next]==0) {
+						if(inDegrees[next] == 0) {
 							q.offer(next);
 						}
+						
 					}
 					
 				}
+				
+			}
+			sb.append('#').append(t);
+			for(int i = 0; i < arr.size(); i++) {
+				sb.append(' ').append(arr.get(i));
 			}
 			sb.append('\n');
+			
+			
+			
+			
+			
+			
+			
 			
 			
 		}
 		System.out.print(sb);
 		
-			
+		
 	}
 
 }
