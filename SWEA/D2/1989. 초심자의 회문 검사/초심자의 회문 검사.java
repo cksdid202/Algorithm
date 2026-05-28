@@ -4,7 +4,7 @@ import java.io.InputStreamReader;
 
 public class Solution {
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws Exception{
 		// TODO Auto-generated method stub
 
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -16,20 +16,19 @@ public class Solution {
 			
 			String line = br.readLine();
 			
-			int result = 1;
+			int len = line.length();
+			StringBuilder reverseSB = new StringBuilder();
 			
-			for(int i = 0; i <= line.length() / 2; i++) {
-				
-				if(line.charAt(i) != line.charAt(line.length()-1-i)) {
-					result = 0;
-					break;
-				}
-				
+			for(int i = len-1; i >= 0; i--) {
+				reverseSB.append(line.charAt(i));
+			}
+			
+			int result = 0;
+			if(line.equals(reverseSB.toString())) {
+				result = 1;
 			}
 			
 			sb.append('#').append(t).append(' ').append(result).append('\n');
-			
-			
 			
 		}
 		System.out.print(sb);
